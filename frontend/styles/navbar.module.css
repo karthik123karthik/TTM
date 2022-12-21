@@ -1,0 +1,7 @@
+.menu{
+    @apply w-[100%] h-[100%] p-3;
+}
+
+.link{
+    @apply  h-[10%] w-[100%] relative flex flex-row border-b-[0.025em] border-[#64748b] items-center text-[#06b6d4] hover:text-white;
+}
