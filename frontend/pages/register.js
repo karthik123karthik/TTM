@@ -10,17 +10,13 @@ export default function register() {
 
 async function handleSubmit(e){
   e.preventDefault();
-    const data = JSON.stringify(form)
-    const resp =await axios.post('http://localhost:3030/register/teacher',{data:data},{
-      headers:{
-        "Content-Type":"application/json"
-      }
-    });
-    console.log(await resp.json());
+    const resp =await axios.post('http://localhost:3030/register/teacher',form);
+    console.log(resp);
 } 
 
 function handleChange(e){
    e.preventDefault();
+   form[e.target.name] = e.target.value;
    setForm((prev) => {
     return {
       
@@ -39,7 +35,7 @@ function handleChange(e){
           <form className="p-10" onSubmit={handleSubmit}>
             <div className="relative z-0 mb-6 w-full group">
               <input
-                type="text"
+                type="number"
                 name="id"
                 id="floating_email"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"

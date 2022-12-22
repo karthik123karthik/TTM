@@ -40,17 +40,19 @@ app.get('/',(req,res)=>{
 
 /*adding a lecturer*/
 app.post('/register/teacher',(req,res)=>{
-    let data = req.body.data;
-    data = JSON.parse(data);
-    data.id = Number(data.id);
+    let data = req.body;
+    console.log(data);
     const {id,lectName,address,phone} = data;
-    console.log(typeof(id),typeof(lectName),typeof(address),typeof(phone))
+    console.log(typeof(Number(id)),typeof(lectName),typeof(address),typeof(phone))
     if(connection){
-        connection.query(`INSERT INTO LECTURER VALUES(${id},'${lectName}','${phone}','${address})'`,(err,result)=>{
-            if(err)res.status(400).send(err.message);
-            else res.status(200).send(result);
+        connection.query(`INSERT INTO LECTURER VALUES(${Number(id)},'${lectName}','${phone}','${address}')`,(err,result)=>{
+            if(err){
+                console.log(err);
+                res.send("error")
+            }
+            else res.status(200).send("success");
         })
-    }
+    } 
 })
 
 
