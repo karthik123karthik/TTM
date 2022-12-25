@@ -28,7 +28,7 @@ connection.connect((err)=>{
 
 /* getting all the lecturers*/
 const que = 'SELECT * FROM Lecturer';
-app.get('/',(req,res)=>{
+app.get('/teacher',(req,res)=>{
     if (connection){
         connection.query(que,(err,result)=>{
             if(err)console.log(err)
@@ -37,18 +37,35 @@ app.get('/',(req,res)=>{
     }
 })
 
+/* getting all the class rooms*/
+app.get("/classroom",(req,res)=>{
+    if(connection){
+        connection.query("select * from class_room",(err, result)=>{
+            if(err)res.status(400).send(err.message)
+            else res.json(result);
+        })
+    }
+})
+
+/* getting all subjects */
+app.get("/subject",(req,res)=>{
+    if(connection){
+        connection.query("select * from subject",(err, result)=>{
+            if(err)res.status(err.code).send(err.message)
+            else res.json(result)
+        })
+    }
+})
+
 
 /*adding a lecturer*/
 app.post('/register/teacher',(req,res)=>{
     let data = req.body;
-    console.log(data);
     const {id,lectName,address,phone} = data;
-    console.log(typeof(Number(id)),typeof(lectName),typeof(address),typeof(phone))
     if(connection){
         connection.query(`INSERT INTO LECTURER VALUES(${Number(id)},'${lectName}','${phone}','${address}')`,(err,result)=>{
             if(err){
-                console.log(err);
-                res.send("error")
+                res.status(400).send(err.message)
             }
             else res.status(200).send("success");
         })
