@@ -41,7 +41,7 @@ app.get('/teacher',(req,res)=>{
 app.get("/classroom",(req,res)=>{
     if(connection){
         connection.query("select * from class_room",(err, result)=>{
-            if(err)res.status(400).send(err.message)
+            if(err) res.status(400).send(err);
             else res.json(result);
         })
     }
@@ -50,7 +50,7 @@ app.get("/classroom",(req,res)=>{
 /* getting all subjects */
 app.get("/subject",(req,res)=>{
     if(connection){
-        connection.query("select * from subject",(err, result)=>{
+        connection.query("select subject_id, subject_name from subject",(err, result)=>{
             if(err)res.status(err.code).send(err.message)
             else res.json(result)
         })
@@ -65,7 +65,7 @@ app.post('/register/teacher',(req,res)=>{
     if(connection){
         connection.query(`INSERT INTO LECTURER VALUES(${Number(id)},'${lectName}','${phone}','${address}')`,(err,result)=>{
             if(err){
-                res.status(400).send(err.message)
+                res.status(400).send({err})
             }
             else res.status(200).send("success");
         })

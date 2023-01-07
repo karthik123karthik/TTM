@@ -1,8 +1,11 @@
 import style from "../styles/welcome.module.css";
-
+//import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 export default function Home() {
+
+ // const { user, error, isLoading } = useUser();
+
   return (
     <div className={style.body}>
       <div id={style.stars}></div>
@@ -20,9 +23,12 @@ export default function Home() {
         </div>
         <div className={style.layer} datadepth="0.3">
           <div className={style.somemorespace1}>
-            <a  className={style.a} href="/welcome" >
-               click me
-            </a>
+          <a className={style.a} href="/welcome">welcome</a>
+         {/*user? <a className={style.a} href="/welcome">welcome</a>:
+          <a  className={style.a} href="/api/auth/login" >
+          click me
+       </a>
+  */}  
           </div>
         </div>
       </div>

@@ -2,8 +2,12 @@ import dynamic from "next/dynamic";
 import style from "../styles/Home.module.css";
 import Image from "next/image";
 import Layout from "../components/Layout";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 function welcome() {
+  const { user, error, isLoading } = useUser();
+  console.log(user)
+
   return (
     <Layout>
           <div className={style.poster}>
