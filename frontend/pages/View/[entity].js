@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
 import style from "../../styles/Home.module.css";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function display() {
   const router = useRouter();
   const { entity } = router.query;
   const [data, setData] = useState();
+  const [tempdata, setTempData] = useState();
   const [heading, setHeading] = useState([]);
-  const [input,setInput] = useState("");
+  const [input, setInput] = useState("");
 
   useEffect(() => {
     const run = async () => {
@@ -27,25 +27,27 @@ export default function display() {
       const response = await fetch(`http://localhost:3030/${entity}`);
       const result = await response.json();
       setData(result);
-      setHeading(Object.keys(result[0]));
+      const head = Object.keys(result[0]);
+      setHeading(head);
+      setTempData(result);
     } catch (err) {
       console.log(err.message);
     }
   }
 
-  function handleInput(e){
-      e.preventDefault();
-      setInput(e.target.value)
+  function handleInput(e) {
+    e.preventDefault();
+    setInput(e.target.value);
   }
 
-  function  search(e){
-    e.preventDefault()
-     const requiredData = data.find((ent) => ent[heading[1]] == input)
-     if(requiredData)setData([requiredData])
-     else{
-          toast.error(`${entity} not found`)
-          return
-     }
+  function search(e) {
+    e.preventDefault();
+    const requiredData = data.filter((ent) => ent[heading[0]] == input);
+    if (requiredData.length > 0) setTempData([...requiredData]);
+    else {
+      toast.error(`${entity} not found`);
+      return;
+    }
   }
 
   return (
@@ -54,11 +56,22 @@ export default function display() {
         <h1 className="text-black font-bold font-2xl block mt-5">
           {entity && entity.toUpperCase()} Details{" "}
         </h1>
-        <form>
-           <input type="text" placeholder={`Enter ${entity} id`} onChange={handleInput} required/>
-           <button onClick={search}>search</button>
+        <form className="mt-5 p-4">
+          <input
+            type="text"
+            className="mr-3"
+            placeholder={`Enter ${entity} id`}
+            onChange={handleInput}
+            required
+          />
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-full"
+            onClick={search}
+          >
+            search
+          </button>
         </form>
-        {data && heading && (
+        {tempdata && heading && (
           <div className="flex flex-col p-2">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -66,9 +79,10 @@ export default function display() {
                   <table className="min-w-full">
                     <thead className="bg-white border-b">
                       <tr>
-                        {heading.map((ele,idx) => {
+                        {heading.map((ele, idx) => { 
                           return (
-                            <th key={idx}
+                            <th
+                              key={idx}
                               scope="col"
                               className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                             >
@@ -79,17 +93,20 @@ export default function display() {
                       </tr>
                     </thead>
                     <tbody>
-                      {data.map((ele, idx) => {
+                      {tempdata.map((ele, idx) => {
                         return (
-                          <tr key={idx} className="bg-gray-100 border-b">
-                             {heading.map((name,index)=>{
-                                 return (
-                                  <td key={index} className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                  {ele[name]}
-                                </td>
-                                 )
-                             })}
-                          </tr>
+                            <tr key={idx} onClick={()=> alert("clicked")} className="bg-gray-100 border-b">
+                              {heading.map((name, index) => {
+                                return (
+                                  <td
+                                    key={index}
+                                    className="text-sm text-gray-900 font-light px-6 py-4px-6 py-4 whitespace-nowrap"
+                                  >
+                                    {ele[name]}
+                                  </td>
+                                )
+                              })}
+                            </tr>
                         );
                       })}
                     </tbody>
@@ -100,7 +117,7 @@ export default function display() {
           </div>
         )}
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </Layout>
   );
 }

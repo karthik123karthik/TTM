@@ -73,6 +73,35 @@ app.post('/register/teacher',(req,res)=>{
 })
 
 
+/*adding a subject */
+app.post('/register/subject',(req,res)=>{
+    let data = req.body;
+    const {Subject_id,Subject_name,Lecturer_id} = data;
+    if(connection){
+        connection.query(`INSERT INTO SUBJECT VALUES('${(Subject_id)}','${Subject_name}',${Number(Lecturer_id)})`,(err,result)=>{
+            if(err){
+                res.status(400).send({err})
+            }
+            else res.status(200).send("success");
+        })
+    } 
+})
+
+/*adding a classRoom */
+app.post('/register/classroom',(req,res)=>{
+    let data = req.body;
+    const {Class_room_id, Floor_no, capacity} = data;
+    if(connection){
+        connection.query(`INSERT INTO class_room VALUES(${Number(Class_room_id)},${Number(Floor_no)},${Number(capacity)})`,(err,result)=>{
+            if(err){
+                res.status(400).send({err})
+            }
+            else res.status(200).send("success");
+        })
+    } 
+})
+
+
 
 app.listen(3030,()=>{
     console.log("server is listening")

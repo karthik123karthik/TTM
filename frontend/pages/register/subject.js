@@ -7,17 +7,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function register() {
   const [form, setForm] = useState({
-    id: -1,
-    lectName: "",
-    address: "",
-    phone: "",
+    Subject_id:-1,
+    Subject_name:"",
+    Lecturer_id:-1
   });
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       const resp = await axios.post(
-        "http://localhost:3030/register/teacher",
+        "http://localhost:3030/register/subject",
         form
       );
       if (resp) {e.target.reset()};
@@ -41,12 +40,12 @@ export default function register() {
   return (
     <Layout>
       <div className={style.poster}>
-        <h1 className="text-2xl font-bold p-3 border-b-2">Add Lecturer</h1>
+        <h1 className="text-2xl font-bold p-3 border-b-2">Add Subject</h1>
         <form className="p-10" onSubmit={handleSubmit}>
           <div className="relative z-0 mb-6 w-full group">
             <input
-              type="number"
-              name="id"
+              type="text"
+              name="Subject_id"
               id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -58,13 +57,13 @@ export default function register() {
               htmlFor="id"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Lecturer_id
+              Subject-ID
             </label>
           </div>
           <div className="relative z-0 mb-6 w-full group">
             <input
               type="text"
-              name="lectName"
+              name="Subject_name"
               id="floating_password"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -76,14 +75,14 @@ export default function register() {
               htmlFor="lectName"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Lecturer Name
+              Subject Name
             </label>
           </div>
           <div className="relative z-0 mb-6 w-full group">
             <input
-              type="text"
-              name="address"
-              id="floating_repeat_password"
+              type="number"
+              name="Lecturer_id"
+              id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
@@ -91,31 +90,11 @@ export default function register() {
               autoComplete="off"
             />
             <label
-              htmlFor="address"
+              htmlFor="id"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Address
+              Lecturer-ID
             </label>
-          </div>
-          <div className="grid md:grid-cols-2 md:gap-6">
-            <div className="relative z-0 mb-6 w-full group">
-              <input
-                type="tel"
-                name="phone"
-                id="floating_first_name"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-                onChange={handleChange}
-                autoComplete="off"
-              />
-              <label
-                htmlFor="phone"
-                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Number
-              </label>
-            </div>
           </div>
           <button
             type="submit"

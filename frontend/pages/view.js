@@ -6,7 +6,8 @@ import Link from "next/link"
 export default function view() {
   return (
     <Layout>
-      <div className="flex flex-col justify-around  w-[100%] items-center font-bold mb-3">
+      <div className="flex flex-col justify-around  mt-12 w-[100%] items-center font-bold mb-3">
+      <h1 className="text-2xl font-extrabold">VIEW DETAILS</h1>
         <div className="flex flex-row justify-around w-[90%] mt-3">
           <div className="hover:transform hover:scale-110">
             <h3 className="text-center font-bold mb-3">Lecturer</h3>
