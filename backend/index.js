@@ -100,6 +100,32 @@ app.post('/register/classroom',(req,res)=>{
         })
     } 
 })
+/*adding a Schedule*/
+app.post('/register/schedule',(req,res)=>{
+    let data = req.body;
+    const {Time, Day, Lecturer_id, Class_id, Subject_id, class_room_id} = data;
+    if(connection){
+        connection.query(`INSERT INTO schedule(class_time, class_day, Lecturer_id, Class_id, Subject_id, class_room_id) VALUES('${Time}','${(Day)}',${Number(Lecturer_id)},${Number(Class_id)},'${Subject_id}',${Number(class_room_id)})`,(err,result)=>{
+            if(err){
+                res.status(400).send({err})
+            }
+            else res.status(200).send("success");
+        })
+    } 
+})
+
+/*deleting a teacher*/
+app.delete('/:entity/:id',(req, res)=>{
+    const {entity,id} = req.params;
+    if(connection){
+        connection.query(`delete from Lecturer where Lecturer_id = ${Number(id)}`,(err, result) => {
+            if(err){
+                res.status(400).send(err);
+            }
+            res.status(200).send(result);
+        })
+    }
+})
 
 
 

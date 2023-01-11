@@ -2,13 +2,20 @@ import style from "../styles/welcome.module.css";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
 
   function render() {
+  
     if (isLoading) {
-      return <h1>loading.....</h1>;
+      return (
+        <Box className="h-[100vh] w-[100vw] flex justify-center items-center" sx={{ display: "flex"}}>
+          <CircularProgress color="success" />
+        </Box>
+      );
     }
 
     if (error) {

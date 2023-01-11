@@ -13,7 +13,7 @@ export default function Navbar() {
 
 
   return (
-    <div className="w-[20%] bg-[#e2e8f0]">
+    <div className="min-w-[20%] bg-[#e2e8f0]">
       <ul className={style.menu}>
         <li className={style.link}>
           <AiFillHome className="mr-3" />

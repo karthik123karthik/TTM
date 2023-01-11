@@ -4,6 +4,15 @@ import Layout from "../../components/Layout";
 import style from "../../styles/Home.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import axios from "../../node_modules/axios";
+
+
 
 export default function display() {
   const router = useRouter();
@@ -12,6 +21,19 @@ export default function display() {
   const [tempdata, setTempData] = useState();
   const [heading, setHeading] = useState([]);
   const [input, setInput] = useState("");
+  const [open, setOpen] = useState(false);
+  const [curr,setCurr] = useState({}); 
+
+
+  const handleClickOpen = (entity) => {
+    setCurr(entity);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   useEffect(() => {
     const run = async () => {
@@ -48,6 +70,19 @@ export default function display() {
       toast.error(`${entity} not found`);
       return;
     }
+  }
+
+  async function handledelete(){
+    try{
+      const resp = await axios.delete(`http://localhost:3030/${entity}/${curr[heading[0]]}`);
+      setOpen(false);
+      await handledata();
+      toast("success deleted the entry");
+    }
+    catch(err){
+        toast.error(err);
+    }
+    return
   }
 
   return (
@@ -95,7 +130,7 @@ export default function display() {
                     <tbody>
                       {tempdata.map((ele, idx) => {
                         return (
-                            <tr key={idx} onClick={()=> alert("clicked")} className="bg-gray-100 border-b">
+                            <tr key={idx} onClick={() => handleClickOpen(ele)} className="bg-gray-100 border-b hover:cursor-pointer">
                               {heading.map((name, index) => {
                                 return (
                                   <td
@@ -117,6 +152,27 @@ export default function display() {
           </div>
         )}
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {`Do You Want to Delete ${curr[heading[1]]}`}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            "Press Yes to proceed"
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>NO</Button>
+          <Button onClick={handledelete} autoFocus>
+            YES
+          </Button>
+        </DialogActions>
+      </Dialog>
       <ToastContainer />
     </Layout>
   );
