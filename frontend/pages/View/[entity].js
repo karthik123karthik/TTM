@@ -4,26 +4,27 @@ import Layout from "../../components/Layout";
 import style from "../../styles/Home.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
 import axios from "../../node_modules/axios";
-
+import { BsFillArchiveFill } from "react-icons/bs";
 
 
 export default function display() {
   const router = useRouter();
   const { entity } = router.query;
+  console.log(entity);
   const [data, setData] = useState();
   const [tempdata, setTempData] = useState();
   const [heading, setHeading] = useState([]);
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
-  const [curr,setCurr] = useState({}); 
-
+  const [curr, setCurr] = useState({});
+  
 
   const handleClickOpen = (entity) => {
     setCurr(entity);
@@ -33,7 +34,6 @@ export default function display() {
   const handleClose = () => {
     setOpen(false);
   };
-
 
   useEffect(() => {
     const run = async () => {
@@ -50,7 +50,9 @@ export default function display() {
       const result = await response.json();
       setData(result);
       const head = Object.keys(result[0]);
+      head.push("delete");
       setHeading(head);
+      console.log(head);
       setTempData(result);
     } catch (err) {
       console.log(err.message);
@@ -72,18 +74,21 @@ export default function display() {
     }
   }
 
-  async function handledelete(){
-    try{
-      const resp = await axios.delete(`http://localhost:3030/${entity}/${curr[heading[0]]}`);
+  async function handledelete() {
+    try {
+      const resp = await axios.delete(
+        `http://localhost:3030/${entity}/${curr[heading[0]]}`
+      );
       setOpen(false);
       await handledata();
       toast("success deleted the entry");
+    } catch (err) {
+      toast.error(err);
     }
-    catch(err){
-        toast.error(err);
-    }
-    return
+    return;
   }
+
+
 
   return (
     <Layout>
@@ -91,7 +96,7 @@ export default function display() {
         <h1 className="text-black font-bold font-2xl block mt-5">
           {entity && entity.toUpperCase()} Details{" "}
         </h1>
-        <form className="mt-5 p-4">
+        <div className="mt-5 p-4">
           <input
             type="text"
             className="mr-3"
@@ -105,7 +110,8 @@ export default function display() {
           >
             search
           </button>
-        </form>
+          
+        </div >
         {tempdata && heading && (
           <div className="flex flex-col p-2">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -114,7 +120,7 @@ export default function display() {
                   <table className="min-w-full">
                     <thead className="bg-white border-b">
                       <tr>
-                        {heading.map((ele, idx) => { 
+                        {heading.map((ele, idx) => {
                           return (
                             <th
                               key={idx}
@@ -130,18 +136,23 @@ export default function display() {
                     <tbody>
                       {tempdata.map((ele, idx) => {
                         return (
-                            <tr key={idx} onClick={() => handleClickOpen(ele)} className="bg-gray-100 border-b hover:cursor-pointer">
-                              {heading.map((name, index) => {
-                                return (
-                                  <td
-                                    key={index}
-                                    className="text-sm text-gray-900 font-light px-6 py-4px-6 py-4 whitespace-nowrap"
-                                  >
-                                    {ele[name]}
-                                  </td>
-                                )
-                              })}
-                            </tr>
+                          <tr
+                            key={idx}
+                            onClick={() => handleClickOpen(ele)}
+                            className="bg-gray-100 border-b hover:cursor-pointer"
+                          >
+                            {heading.map((name, index) => {
+        
+                              return (
+                                <td
+                                  key={index}
+                                  className="text-sm text-gray-900 font-light px-6 py-4px-6 py-4 whitespace-nowrap"
+                                >
+                                  {name==='delete'? <BsFillArchiveFill  onClick={() => handleClickOpen(ele)} />:ele[name]}
+                                </td>
+                              );
+                            })}
+                          </tr>
                         );
                       })}
                     </tbody>

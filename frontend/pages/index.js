@@ -32,7 +32,7 @@ export default function Home() {
         <div id={style.parallax}>
           <div className={style.layer} datadepth="0.6">
             <div className={style.somespace}>
-              <h1 className={style.h1}>WELCOME To DBMS MINI PROJECT</h1>
+              <h1 className={style.h1}>WELCOME TO DBMS MINI PROJECT</h1>
             </div>
           </div>
           <div className={style.layer} datadepth="0.4">

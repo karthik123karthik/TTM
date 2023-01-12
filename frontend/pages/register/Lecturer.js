@@ -1,6 +1,6 @@
 import style from "../../styles/Home.module.css";
 import { useState } from "react";
-import axios from "../../node_modules/axios";
+import axios from "axios";
 import Layout from "../../components/Layout";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +17,7 @@ export default function register() {
     e.preventDefault();
     try {
       const resp = await axios.post(
-        "http://localhost:3030/register/teacher",
+        "http://localhost:3030/register/Lecturer",
         form
       );
       if (resp) {e.target.reset()};

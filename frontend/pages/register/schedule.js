@@ -2,17 +2,17 @@ import style from "../../styles/Home.module.css";
 import { useState } from "react";
 import axios from "../../node_modules/axios";
 import Layout from "../../components/Layout";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function register() {
   const [form, setForm] = useState({
-    Time:"",
-    Day:"",
-    Lecturer_id:-1,
+    Time: "",
+    Day: "",
+    Lecturer_id: -1,
     Class_id:-1,
-    Subject_id:"",
-    class_room_id:-1
+    Subject_id: "",
+    class_room_id: -1,
   });
 
   async function handleSubmit(e) {
@@ -22,7 +22,9 @@ export default function register() {
         "http://localhost:3030/register/schedule",
         form
       );
-      if (resp) {e.target.reset()};
+      if (resp) {
+        e.target.reset();
+      }
       toast("successfully added");
     } catch (err) {
       toast.error(err.response.data.err.sqlMessage);
@@ -84,6 +86,24 @@ export default function register() {
           <div className="relative z-0 mb-6 w-full group">
             <input
               type="number"
+              name="Class_id"
+              id="floating_email"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+              onChange={handleChange}
+              autoComplete="off"
+            />
+            <label
+              htmlFor="id"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              class_id
+            </label>
+          </div>
+          <div className="relative z-0 mb-6 w-full group">
+            <input
+              type="number"
               name="Lecturer_id"
               id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -97,24 +117,6 @@ export default function register() {
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Lecturer id
-            </label>
-          </div>
-          <div className="relative z-0 mb-6 w-full group">
-            <input
-              type="number"
-              name="Class_id"
-              id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-              onChange={handleChange}
-              autoComplete="off"
-            />
-            <label
-              htmlFor="id"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Class id
             </label>
           </div>
           <div className="relative z-0 mb-6 w-full group">
@@ -161,8 +163,7 @@ export default function register() {
           </button>
         </form>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </Layout>
   );
 }
- 

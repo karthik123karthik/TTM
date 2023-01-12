@@ -11,7 +11,7 @@ export default function register() {
         <div className="flex flex-row justify-around w-[90%] mt-3">
           <div className="hover:transform hover:scale-110">
             <h3 className="text-center font-bold mb-3">Lecturer</h3>
-            <Link href="/register/teacher">
+            <Link href="/register/Lecturer">
               <Image
                 src="/Lecturer.png"
                 width={300}
@@ -37,9 +37,9 @@ export default function register() {
             <h3 className="text-center font-bold mb-3">classroom</h3>
             <Link href="/register/class">
               <Image
-                src="/Class.png"
-                width={500}
-                height={400}
+                src="/class2.png"
+                width={300}
+                height={300}
                 alt="classromm image"
               />
             </Link>
