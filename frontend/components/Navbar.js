@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { motion as m } from "framer-motion";
 
 export default function Navbar() {
   const { user, error, isLoading } = useUser();
@@ -21,7 +22,7 @@ export default function Navbar() {
     async function run() {
       const resp = await fetch(`http://localhost:3030/user/${user.email}`);
       const data = await resp.json();
-      if(data.length == 0){
+      if (data.length == 0) {
         setType("student");
         return;
       }
@@ -43,7 +44,12 @@ export default function Navbar() {
     } else {
       if (type && type === "admin") {
         return (
-          <div className="min-w-[20%] bg-[#e2e8f0]">
+          <m.div
+            initial={{ opacity: 0, scale: 0.7, x: "-100%" }}
+            animate={{ opacity: 1, scale: 1, x: "0" }}
+            transition={{ duration: 0.5 }}
+            className="min-w-[20%] bg-[#e2e8f0]"
+          >
             <ul className={style.menu}>
               <li className={style.link}>
                 <AiFillHome className="mr-3" />
@@ -81,13 +87,18 @@ export default function Navbar() {
                 <BsFillCaretLeftFill className="absolute right-0 text-[#1e293b]" />
               </li>
             </ul>
-          </div>
+          </m.div>
         );
       }
 
       if (type && type === "teacher") {
         return (
-          <div className="min-w-[20%] bg-[#e2e8f0]">
+          <m.div
+            initial={{ opacity: 0, scale: 0.7, x: "-100%" }}
+            animate={{ opacity: 1, scale: 1, x: "0" }}
+            transition={{ duration: 0.5 }}
+            className="min-w-[20%] bg-[#e2e8f0]"
+          >
             <ul className={style.menu}>
               <li className={style.link}>
                 <AiFillHome className="mr-3" />
@@ -105,13 +116,18 @@ export default function Navbar() {
                 <BsFillCaretLeftFill className="absolute right-0 text-[#1e293b]" />
               </li>
             </ul>
-          </div>
+          </m.div>
         );
       }
 
-      if(type && type === "student"){
-        return(
-          <div className="min-w-[20%] bg-[#e2e8f0]">
+      if (type && type === "student") {
+        return (
+          <m.div
+            initial={{ opacity: 0, scale: 0.7, x: "-100%" }}
+            animate={{ opacity: 1, scale: 1, x: "0" }}
+            transition={{ duration: 0.5 }}
+            className="min-w-[20%] bg-[#e2e8f0]"
+          >
             <ul className={style.menu}>
               <li className={style.link}>
                 <AiFillHome className="mr-3" />
@@ -129,10 +145,9 @@ export default function Navbar() {
                 <BsFillCaretLeftFill className="absolute right-0 text-[#1e293b]" />
               </li>
             </ul>
-          </div>
-        )
+          </m.div>
+        );
       }
-
     }
   }
 

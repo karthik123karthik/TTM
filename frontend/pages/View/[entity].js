@@ -12,7 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import axios from "../../node_modules/axios";
 import { BsFillArchiveFill } from "react-icons/bs";
-
+import { motion as m } from "framer-motion";
 
 export default function display() {
   const router = useRouter();
@@ -24,7 +24,6 @@ export default function display() {
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const [curr, setCurr] = useState({});
-  
 
   const handleClickOpen = (entity) => {
     setCurr(entity);
@@ -88,11 +87,14 @@ export default function display() {
     return;
   }
 
-
-
   return (
     <Layout>
-      <div className={style.poster}>
+      <m.div
+        initial={{ opacity: 0, scale: 0.7}}
+        animate={{ opacity: 1, scale: 1}}
+        transition={{ duration: 0.5 }}
+        className={style.poster}
+      >
         <h1 className="text-black font-bold font-2xl block mt-5">
           {entity && entity.toUpperCase()} Details{" "}
         </h1>
@@ -110,8 +112,7 @@ export default function display() {
           >
             search
           </button>
-          
-        </div >
+        </div>
         {tempdata && heading && (
           <div className="flex flex-col p-2">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -142,13 +143,18 @@ export default function display() {
                             className="bg-gray-100 border-b hover:cursor-pointer"
                           >
                             {heading.map((name, index) => {
-        
                               return (
                                 <td
                                   key={index}
                                   className="text-sm text-gray-900 font-light px-6 py-4px-6 py-4 whitespace-nowrap"
                                 >
-                                  {name==='delete'? <BsFillArchiveFill  onClick={() => handleClickOpen(ele)} />:ele[name]}
+                                  {name === "delete" ? (
+                                    <BsFillArchiveFill
+                                      onClick={() => handleClickOpen(ele)}
+                                    />
+                                  ) : (
+                                    ele[name]
+                                  )}
                                 </td>
                               );
                             })}
@@ -162,7 +168,7 @@ export default function display() {
             </div>
           </div>
         )}
-      </div>
+      </m.div>
       <Dialog
         open={open}
         onClose={handleClose}

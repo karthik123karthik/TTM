@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {motion as m} from "framer-motion";
 
 export default function display() {
   const [data, setData] = useState();
@@ -78,7 +79,9 @@ export default function display() {
 
   return (
     <Layout>
-      <div className={style.poster}>
+      <m.div  initial={{ opacity: 0, scale: 0.7}}
+            animate={{ opacity: 1, scale: 1}}
+            transition={{ duration: 0.5 }} className={style.poster}>
       <h1 className="p-3 text-xl font-extrabold border-b-solid border-b-2">VIEW YOUR CLASSES</h1>
         <form
           onSubmit={handledata}
@@ -213,7 +216,7 @@ export default function display() {
             </div>
           </div>
         </div>
-      </div>
+      </m.div>
       <ToastContainer/>
     </Layout>
   );

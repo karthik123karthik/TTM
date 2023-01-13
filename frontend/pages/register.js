@@ -2,11 +2,17 @@ import React from "react";
 import Layout from "../components/Layout";
 import Image from "next/image";
 import Link from "next/link";
+import { motion as m } from "framer-motion";
 
 export default function register() {
   return (
     <Layout>
-      <div className="flex flex-col justify-around mt-[100px]  w-[100%] items-center font-bold mb-3">
+      <m.div
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col justify-around mt-[100px]  w-[100%] items-center font-bold mb-3"
+      >
         <h1 className="text-2xl font-extrabold">ADD DETAILS</h1>
         <div className="flex flex-row justify-around w-[90%] mt-3">
           <div className="hover:transform hover:scale-110">
@@ -56,7 +62,7 @@ export default function register() {
             </Link>
           </div>
         </div>
-      </div>
+      </m.div>
     </Layout>
   );
 }

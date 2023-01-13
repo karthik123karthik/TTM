@@ -2,14 +2,15 @@ import style from "../../styles/Home.module.css";
 import { useState } from "react";
 import axios from "../../node_modules/axios";
 import Layout from "../../components/Layout";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { motion as m } from "framer-motion";
 
 export default function register() {
   const [form, setForm] = useState({
-    Subject_id:-1,
-    Subject_name:"",
-    Lecturer_id:-1
+    Subject_id: -1,
+    Subject_name: "",
+    Lecturer_id: -1,
   });
 
   async function handleSubmit(e) {
@@ -19,7 +20,9 @@ export default function register() {
         "http://localhost:3030/register/subject",
         form
       );
-      if (resp) {e.target.reset()};
+      if (resp) {
+        e.target.reset();
+      }
       toast("successfully added");
     } catch (err) {
       toast.error(err.response.data.err.sqlMessage);
@@ -39,7 +42,12 @@ export default function register() {
 
   return (
     <Layout>
-      <div className={style.poster}>
+      <m.div
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className={style.poster}
+      >
         <h1 className="text-2xl font-bold p-3 border-b-2">Add Subject</h1>
         <form className="p-10" onSubmit={handleSubmit}>
           <div className="relative z-0 mb-6 w-full group">
@@ -103,8 +111,8 @@ export default function register() {
             Submit
           </button>
         </form>
-      </div>
-      <ToastContainer/>
+      </m.div>
+      <ToastContainer />
     </Layout>
   );
 }

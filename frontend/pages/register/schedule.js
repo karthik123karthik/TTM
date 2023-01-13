@@ -4,13 +4,14 @@ import axios from "../../node_modules/axios";
 import Layout from "../../components/Layout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion as m } from "framer-motion";
 
 export default function register() {
   const [form, setForm] = useState({
     Time: "",
     Day: "",
     Lecturer_id: -1,
-    Class_id:-1,
+    Class_id: -1,
     Subject_id: "",
     class_room_id: -1,
   });
@@ -44,7 +45,12 @@ export default function register() {
 
   return (
     <Layout>
-      <div className={style.poster}>
+      <m.div
+        initial={{ opacity: 0, scale: 0.7}}
+        animate={{ opacity: 1, scale: 1}}
+        transition={{ duration: 0.5 }}
+        className={style.poster}
+      >
         <h1 className="text-2xl font-bold p-3 border-b-2">Add Schedule</h1>
         <form className="p-10" onSubmit={handleSubmit}>
           <div className="relative z-0 mb-6 w-full group">
@@ -162,7 +168,7 @@ export default function register() {
             Submit
           </button>
         </form>
-      </div>
+      </m.div>
       <ToastContainer />
     </Layout>
   );

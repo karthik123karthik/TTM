@@ -6,15 +6,15 @@ import "react-toastify/dist/ReactToastify.css";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { motion as m } from "framer-motion";
 
 export default function display() {
-    const [data,setData] = useState([]);
-    const [head, setHead] = useState([]);
+  const [data, setData] = useState([]);
+  const [head, setHead] = useState([]);
   const [form, setForm] = useState({
     lecturer_id: 1,
     day: "",
   });
-
 
   async function handledata(e) {
     e.preventDefault();
@@ -23,19 +23,17 @@ export default function display() {
         `http://localhost:3030/newtimetable/${form.lecturer_id}/${form.day}`
       );
       const result = await response.json();
-      if(result.length == 0){
-          toast.success(`You Have No classes On ${form.day}`);
-          return;
-        }
-     setHead(Object.keys(result[0]));
-      console.log(result)
-      setData(result);     
+      if (result.length == 0) {
+        toast.success(`You Have No classes On ${form.day}`);
+        return;
       }
-      catch(err){
-        console.log(err)
-        toast.error(err)
-      }
-
+      setHead(Object.keys(result[0]));
+      console.log(result);
+      setData(result);
+    } catch (err) {
+      console.log(err);
+      toast.error(err);
+    }
   }
 
   function handleChange(e) {
@@ -46,13 +44,19 @@ export default function display() {
         ...form,
       };
     });
-  
   }
 
   return (
     <Layout>
-      <div className={style.poster}>
-        <h1 className="p-3 text-xl font-extrabold border-b-solid border-b-2">VIEW YOUR SCHEDULE</h1>
+      <m.div
+        initial={{ opacity: 0, scale: 0.7}}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className={style.poster}
+      >
+        <h1 className="p-3 text-xl font-extrabold border-b-solid border-b-2">
+          VIEW YOUR SCHEDULE
+        </h1>
         <form
           onSubmit={handledata}
           className="mt-5 border-2 flex justify-between w-[40%] items-center border-solid b-2 p-4"
@@ -102,55 +106,54 @@ export default function display() {
           </button>
         </form>
         <div className="flex flex-col p-2">
-            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="overflow-hidden">
-                  <table className="min-w-full">
-                    <thead className="bg-white border-b">
-                      <tr>
-                        {head.map((ele, idx) => {
-                          return (
-                            <th
-                              key={idx}
-                              scope="col"
-                              className="text-sm font-extrabold text-gray-900 px-6 py-4 text-left"
-                            >
-                              {ele.toUpperCase()}
-                            </th>
-                          );
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data && data.map((ele, idx) => {
+          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+              <div className="overflow-hidden">
+                <table className="min-w-full">
+                  <thead className="bg-white border-b">
+                    <tr>
+                      {head.map((ele, idx) => {
+                        return (
+                          <th
+                            key={idx}
+                            scope="col"
+                            className="text-sm font-extrabold text-gray-900 px-6 py-4 text-left"
+                          >
+                            {ele.toUpperCase()}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data &&
+                      data.map((ele, idx) => {
                         return (
                           <tr
                             key={idx}
                             className="bg-gray-100 border-b hover:cursor-pointer"
                           >
                             {head.map((name, index) => {
-        
                               return (
                                 <td
                                   key={index}
                                   className="text-sm text-gray-900 font-light px-6 py-4px-6 py-4 whitespace-nowrap"
                                 >
-                                 {ele[name]}
+                                  {ele[name]}
                                 </td>
                               );
                             })}
                           </tr>
                         );
                       })}
-                    </tbody>
-                  </table>
-                </div>
+                  </tbody>
+                </table>
               </div>
             </div>
-          </div>         
-
+          </div>
         </div>
-      <ToastContainer/>
+      </m.div>
+      <ToastContainer />
     </Layout>
   );
 }
