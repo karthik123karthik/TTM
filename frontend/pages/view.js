@@ -15,7 +15,7 @@ export default function view() {
       >
         <h1 className="text-2xl font-extrabold">VIEW DETAILS</h1>
         <div className="flex flex-row justify-around w-[90%] mt-3">
-          <div className="hover:transform hover:scale-110">
+          <div className="hover:transform hover:scale-75">
             <h3 className="text-center font-bold mb-3">Lecturer</h3>
             <Link href="/View/Lecturer">
               <Image
@@ -26,7 +26,7 @@ export default function view() {
               />
             </Link>
           </div>
-          <div className="hover:transform hover:scale-110">
+          <div className="hover:transform hover:scale-75">
             <h3 className="text-center font-bold mb-3">Subjects</h3>
             <Link href="/View/subject">
               <Image
@@ -38,7 +38,7 @@ export default function view() {
             </Link>
           </div>
         </div>
-        <div className="hover:transform hover:scale-110">
+        <div className="hover:transform hover:scale-75">
           <h3 className="text-center font-bold mb-3">classroom</h3>
           <Link href="/View/classroom">
             <Image

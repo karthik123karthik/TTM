@@ -11,11 +11,11 @@ export default function register() {
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col justify-around mt-[100px]  w-[100%] items-center font-bold mb-3"
+        className="flex flex-col justify-around   w-[100%] items-center font-bold mb-3"
       >
-        <h1 className="text-2xl font-extrabold">ADD DETAILS</h1>
+        <h1 className="text-2xl font-extrabold mt-5 border-b-2">ADD DETAILS</h1>
         <div className="flex flex-row justify-around w-[90%] mt-3">
-          <div className="hover:transform hover:scale-110">
+          <div className="hover:transform hover:scale-75">
             <h3 className="text-center font-bold mb-3">Lecturer</h3>
             <Link href="/register/Lecturer">
               <Image
@@ -26,7 +26,7 @@ export default function register() {
               />
             </Link>
           </div>
-          <div className="hover:transform hover:scale-110">
+          <div className="hover:transform hover:scale-75">
             <h3 className="text-center font-bold mb-3">Subjects</h3>
             <Link href="/register/subject">
               <Image
@@ -39,7 +39,7 @@ export default function register() {
           </div>
         </div>
         <div className="flex flex-row justify-around w-[90%] mt-3">
-          <div className="hover:transform hover:scale-110">
+          <div className="hover:transform hover:scale-75">
             <h3 className="text-center font-bold mb-3">classroom</h3>
             <Link href="/register/class">
               <Image
@@ -50,7 +50,7 @@ export default function register() {
               />
             </Link>
           </div>
-          <div className="hover:transform hover:scale-110">
+          <div className="hover:transform hover:scale-75">
             <h3 className="text-center font-bold mb-3">Schedule</h3>
             <Link href="/register/schedule">
               <Image
